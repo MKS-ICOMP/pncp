@@ -1,0 +1,6 @@
+# estrutura do projeto
+projeto_pncp/
+├── main_app.py         (Módulo Principal com a interface curses)
+├── cliente_pncp.py     (Módulo Auxiliar 1: Classe para a API)
+├── modelos.py          (Módulo Auxiliar 2: Classe 'Contratacao' com métodos mágicos)
+└── favoritos.txt       (Será criado automaticamente ao salvar)
