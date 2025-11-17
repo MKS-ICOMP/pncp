@@ -1,6 +1,57 @@
-# estrutura do projeto
+# 📘 Projeto PNCP
+**Trabalho final da disciplina “Programação Python” – Projeto Connor (connor.icomp.ufam.edu.br)**
+
+Este projeto implementa uma aplicação em Python para consulta de dados do **Portal Nacional de Contratações Públicas (PNCP)**, com interface em modo texto via **curses**, integração com API e armazenamento de favoritos.  
+O objetivo é demonstrar boas práticas de modularização, organização de código, orientação a objetos e interação com serviços externos.
+
+## 📁 Estrutura do Projeto
+
+```
 projeto_pncp/
-├── main_app.py         (Módulo Principal com a interface curses)
-├── cliente_pncp.py     (Módulo Auxiliar 1: Classe para a API)
-├── modelos.py          (Módulo Auxiliar 2: Classe 'Contratacao' com métodos mágicos)
-└── favoritos.txt       (Será criado automaticamente ao salvar)
+├── main_app.py         # Módulo principal com a interface curses
+├── cliente_pncp.py     # Módulo auxiliar: classe cliente para consulta à API do PNCP
+├── modelos.py          # Módulo auxiliar: classe 'Contratacao' com métodos mágicos
+└── favoritos.txt       # Gerado automaticamente ao salvar favoritos
+```
+
+## 🧩 Descrição dos Módulos
+
+### main_app.py
+- Responsável pela interface em modo texto utilizando `curses`.
+- Realiza interação do usuário com o sistema.
+- Permite pesquisar, visualizar e salvar contratações como favoritas.
+
+### cliente_pncp.py
+- Contém a classe que encapsula o acesso à API do PNCP.
+- Implementa métodos de requisição, tratamento de erros e retorno organizado.
+
+### modelos.py
+- Define a classe `Contratacao`.
+- Implementa métodos mágicos (`__str__`, `__repr__`, etc.) para facilitar exibição e depuração.
+
+### favoritos.txt
+- Arquivo gerado automaticamente.
+- Armazena contratações marcadas como favoritas pelo usuário.
+
+## 🚀 Requisitos
+
+- Python 3.8 ou superior  
+- Bibliotecas padrão: `json`, `os`, `curses`, `requests` (para API)
+
+## ▶️ Como Executar
+
+1. Certifique-se de que está no diretório do projeto:
+   ```bash
+   cd projeto_pncp
+   ```
+
+2. Execute a aplicação principal:
+   ```bash
+   python3 main_app.py
+   ```
+
+3. Utilize a interface para navegar, buscar e salvar favoritos.
+
+## 🎯 Objetivo Acadêmico
+
+Este projeto foi desenvolvido como **trabalho final** da disciplina **Programação Python**, integrando conceitos fundamentais do curso e do **Projeto Connor – IComp/UFAM**.  
