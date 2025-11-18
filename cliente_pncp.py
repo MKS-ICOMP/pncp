@@ -32,13 +32,13 @@ class PncpClient:
 
     def buscar_contratacoes(self, data_inicial, data_final, codigo_modalidade, uf=None, pagina=1, palavra_chave=None):
         """
-        Busca contratações na API e retorna uma lista de objetos Contratacao.
+        Busca contratações na API e retorna uma tupla: (lista de objetos Contratacao, url acessada).
         """
         try:
             data_ini_fmt, data_fim_fmt = self._validar_e_formatar_datas(data_inicial, data_final)
         except ValueError as e:
             print(f"Erro de data: {e}")
-            return [] # Retorna lista vazia em caso de erro de validação
+            return [], nome # Retorna lista vazia, URL none em caso de erro de validação
 
         params = {
             'dataInicial': data_ini_fmt,
@@ -52,6 +52,7 @@ class PncpClient:
 
         try:
             response = requests.get(self.api_url, params=params, timeout=self.timeout)
+            #print(f"\n[DEBUG] URL Acessada: {response.url}\n")  # para DEBUG do POST para API
             response.raise_for_status() # Lança exceção para erros HTTP (4xx, 5xx)
             
             json_data = response.json()
@@ -60,6 +61,9 @@ class PncpClient:
             # Converte a lista de dicionários em uma lista de objetos Contratacao
             lista_contratacoes = [Contratacao(item) for item in resultados_brutos]
             
+            # Captura URL utilizada no POSTO do API PNCP
+            url_acessada = response.url
+
             # Filtro por palavra-chave 
             if palavra_chave:
                 palavra_chave_lower = palavra_chave.lower()
@@ -68,9 +72,9 @@ class PncpClient:
                     c for c in lista_contratacoes 
                     if palavra_chave_lower in c.objeto.lower()
                 ]
-                return resultados_filtrados
+                return resultados_filtrados, url_acessada
             else:
-                return lista_contratacoes
+                return lista_contratacoes, url_acessada
 
         except requests.exceptions.Timeout:
             print("Erro: A API do PNCP demorou muito a responder.")

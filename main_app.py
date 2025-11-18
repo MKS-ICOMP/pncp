@@ -154,13 +154,35 @@ def tela_buscar(stdscr):
         stdscr.refresh()
 
         client = PncpClient()
-        resultados = client.buscar_contratacoes(
+        resultados, url_usada = client.buscar_contratacoes(
             data_inicial=data_inicial_api, # Envia formato AAAA-MM-DD
             data_final=data_final_api,     # Envia formato AAAA-MM-DD
             codigo_modalidade=int(modalidade),
             uf=uf,
             palavra_chave=palavra
         )
+
+        # --- DEBUG P/ EXIBIR A URL E PAUSAR ---
+        y_atual += 1 # Pula linha
+        
+        # Limpa a linha do "Buscando..."
+        stdscr.move(y_atual - 1, 0)
+        stdscr.clrtoeol()
+
+        if url_usada:
+            stdscr.addstr(y_atual - 1, 0, "[DEBUG] URL Acessada:")
+            # Garante que a URL não vai quebrar a tela
+            linha_truncada = url_usada[:w-1]
+            stdscr.addstr(y_atual, 0, linha_truncada)
+            y_atual += 1
+            stdscr.addstr(y_atual, 0, "Pressione qualquer tecla para ver os resultados...")
+        else:
+            # Caso de erro (url_usada é None)
+            stdscr.addstr(y_atual - 1, 0, "Erro na busca (verifique console). Pressione tecla...")
+
+        stdscr.refresh()
+        stdscr.getch() # <-- AQUI ESTÁ A PAUSA (ação de entrada)
+        # --- FIM --- DEBUG P/ EXIBIR A URL E PAUSAR  ---
 
         exibir_resultados(stdscr, resultados)
 
