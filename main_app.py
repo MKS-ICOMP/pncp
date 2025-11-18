@@ -92,6 +92,19 @@ def tela_buscar(stdscr):
     """Tela para coletar dados da busca e exibir resultados."""
     stdscr.clear()
     h, w = stdscr.getmaxyx()
+    
+    # ajustando "curses" tela minima
+    # 3 (header) + 7 (modalidades) + 1 (gap) + 1 (prompt) + 5 (inputs) + 2 (gap/msg) = 19 linhas
+    MIN_HEIGHT = 19
+    
+    if h < MIN_HEIGHT:
+        stdscr.addstr(0, 0, "Erro: Janela do terminal muito pequena.")
+        stdscr.addstr(2, 0, f"Altura mínima necessária: {MIN_HEIGHT}. Altura atual: {h}.")
+        stdscr.addstr(4, 0, "Por favor, aumente o tamanho da janela.")
+        stdscr.addstr(6, 0, "Pressione qualquer tecla para voltar.")
+        stdscr.getch()
+        return # Volta ao menu principal
+
     stdscr.addstr(0, 0, "--- Nova Busca ---")
 
     # Mostrar modalidades disponíveis ---
@@ -185,7 +198,22 @@ def exibir_resultados(stdscr, resultados):
         
         contratacao_atual = resultados[idx_atual]
         # Usa o __str__ da classe Contratacao
-        stdscr.addstr(3, 0, str(contratacao_atual))
+        # stdscr.addstr(3, 0, str(contratacao_atual))
+        # arrumando "curses" escrevendo fora do limite da tela com "\n"
+        y_desenho = 3 # Linha onde começamos a desenhar a contratação
+        linhas_contratacao = str(contratacao_atual).split('\n')
+        
+        for linha in linhas_contratacao:
+            # Garante que não vamos desenhar fora da tela (altura)
+            # Deixa a última linha (h-1) livre para mensagens de status
+            if y_desenho < h - 1: 
+                # Garante que não vamos desenhar fora da tela (largura)
+                linha_truncada = linha[:w-1] # Trunca a linha para caber
+                stdscr.addstr(y_desenho, 0, linha_truncada)
+                y_desenho += 1
+            else:
+                break # Para de desenhar se a tela estiver cheia
+
         stdscr.refresh()
         
         key = stdscr.getch()
@@ -223,8 +251,23 @@ def tela_favoritos(stdscr):
     stdscr.addstr(0, 0, "--- Favoritos Salvos (lendo de 'favoritos.txt') ---")
     
     conteudo = ler_favoritos()
-    
-    stdscr.addstr(2, 0, conteudo)
+
+    #stdscr.addstr(2, 0, conteudo)
+    # arrumando "curses" escrevendo fora do limite da tela com "\n"
+    y_desenho = 2 # Linha onde começamos a desenhar o conteúdo
+    linhas_conteudo = conteudo.split('\n')
+
+    for linha in linhas_conteudo:
+        # Garante que não vamos desenhar fora da tela (altura)
+        # Deixa a última linha (h-1) livre para a mensagem de 'voltar'
+        if y_desenho < h - 2: 
+            # Garante que não vamos desenhar fora da tela (largura)
+            linha_truncada = linha[:w-1] # Trunca a linha para caber
+            stdscr.addstr(y_desenho, 0, linha_truncada)
+            y_desenho += 1
+        else:
+            break # Para de desenhar se a tela estiver cheia
+
     stdscr.addstr(h-1, 0, "Pressione 'q' para voltar ao menu...")
     
     # Loop  para 'q' ou 'Q'
