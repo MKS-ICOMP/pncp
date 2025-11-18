@@ -38,6 +38,13 @@ projeto_pncp/
 - Python 3.8 ou superior  
 - Bibliotecas padrão: `json`, `os`, `curses`, `requests` (para API)
 
+## Documentação API PCNP e Exemplo do uso no projeto 
+- API PNCP CONSULTA: https://pncp.gov.br/api/consulta/swagger-ui/index.html   
+- Manual PNCP API Consultas – Versão 1.0: (Serviço Consultar Contratações por Data de Publicação, Pag. 19) 
+https://www.gov.br/pncp/pt-br/central-de-conteudo/manuais/versoes-anteriores/ManualPNCPAPIConsultasVerso1.0.pdf
+- Exemplo:
+https://pncp.gov.br/api/consulta/v1/contratacoes/publicacao?dataInicial=20241115&dataFinal=20251115&codigoModalidadeContratacao=6&pagina=1&tamanhoPagina=50
+
 ## ▶️ Como Executar
 
 1. Certifique-se de que está no diretório do projeto:
