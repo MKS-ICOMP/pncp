@@ -18,7 +18,7 @@ class Contratacao:
 
         # Acessando dados aninhados com segurança
         self.uf         = data_dict.get('unidadeOrgao',     {}).get('ufSigla', 'UF N/A')
-        self.municipio  = data_dict.get('unidadeOrgao',     {}).get('municipio', {}).get('municipioNome', 'Município N/A')
+        self.municipio  = data_dict.get('unidadeOrgao',     {}).get('municipioNome', 'Município N/A')
         self.valor      = data_dict.get('valorTotalEstimado', 0)
         
         # Tratamento da data
