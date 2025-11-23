@@ -329,7 +329,7 @@ def main(stdscr):
 # --- Ponto de Entrada ---
 if __name__ == "__main__":
 
-    # Integrante 1: Markcson  markson@ufam.edu.br
+    # Integrante 1: Marckson  marckson@ufam.edu.br
     # Integrante 2: Joel Jhimmy joeljhimmy@ufam.edu.br
     
     print("Instalação necessária: pip install -r requirements.txt")
