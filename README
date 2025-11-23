@@ -1,7 +1,7 @@
 # 📘 Projeto PNCP
 **Trabalho final da disciplina “Programação Python” – Projeto Connor (connor.icomp.ufam.edu.br)**
 
-    # Integrante 1: Marckson  marckson@ufam.edu.br
+    # Integrante 1: Marckson  marcksonms@ufam.edu.br
     # Integrante 2: Joel Jhimmy joeljhimmy@ufam.edu.br
 
 Este projeto implementa uma aplicação em Python para consulta de dados do **Portal Nacional de Contratações Públicas (PNCP)**, com interface em modo texto via **curses**, integração com API e armazenamento de favoritos.  
