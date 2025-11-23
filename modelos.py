@@ -12,13 +12,13 @@ class Contratacao:
         Usado para parsear o dicionário JSON da API.
         """
         # Usamos .get() com valores padrão para evitar KeyErrors se um campo faltar
-        self.id = data_dict.get('id')
+        self.id = data_dict.get('numeroControlePNCP', 'ID N/A')
         self.objeto = data_dict.get('objetoCompra', 'N/A')
-        
+        self.orgao      = data_dict.get('orgaoEntidade',    {}).get('razaoSocial', 'Órgão N/A')
+
         # Acessando dados aninhados com segurança
-        self.orgao      = data_dict.get('orgaoEntidade',    {}).get('nome', 'N/A')
-        self.uf         = data_dict.get('unidadeOrgao',     {}).get('uf', 'N/A')
-        self.municipio  = data_dict.get('unidadeOrgao',     {}).get('municipio', {}).get('nome', 'N/A')
+        self.uf         = data_dict.get('unidadeOrgao',     {}).get('ufSigla', 'UF N/A')
+        self.municipio  = data_dict.get('unidadeOrgao',     {}).get('municipio', {}).get('municipioNome', 'Município N/A')
         self.valor      = data_dict.get('valorTotalEstimado', 0)
         
         # Tratamento da data
